@@ -11,7 +11,7 @@ This project demonstrates how an FPV (First-Person-View) drone video feed can be
 - A simple test harness (main.py) to run the full pipeline
 
 ## Included Libraries / Resources
-# Libraries:
+### Libraries:
  - OpenCV (https://opencv.org/)
  - PyCryptodome (https://pypi.org/project/pycryptodome/)
  - Numpy (https://numpy.org/)
