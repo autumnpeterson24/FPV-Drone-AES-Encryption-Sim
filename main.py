@@ -46,7 +46,6 @@ if __name__ == "__main__":
 
     print("Starting FPV Drone Video Decryption...")
     fps_decrypted = d_fpv.decrypt_fpv_stream() # funtions made in encrypt_fpv.py
-    print("Decryption complete.\n")
 
     print("Playing unencrypted video for comparison...")
     fps_unecrypted = play_unecrypted_video("media/fpv_vid.mp4")
