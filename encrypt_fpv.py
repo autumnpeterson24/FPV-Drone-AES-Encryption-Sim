@@ -10,12 +10,10 @@ Description: encrypts fpv_vid.mp4 (simulated fpv drone video stream) frame by fr
     for each frame to the binary file.
 """
 
-import os
-import struct
-import cv2
-import numpy as np
+import struct # for packing and unpacking binary data
+import cv2 # for video processing stuff
 from Crypto.Cipher import AES # Library to use AES-GCM from pycryptodome
-from Crypto.Random import get_random_bytes
+from Crypto.Random import get_random_bytes # for generating random bytes for AES key and nonce
 
 
 KEY_FILE = "aes_key.bin" # binary file containing the AES key to use for encryption
@@ -91,7 +89,7 @@ def encrypt_fpv_stream()->None:
             # Convert frame to bytes
             frame_bytes = frame.tobytes() # convert the frame (numpy array) to bytes
 
-            # START ACTUAL ENCRYPTION PROCESSING HERE: ==================
+            # START ACTUAL ENCRYPTION AND AUTHENTICATION PROCESSING HERE: ==================
             nonce = get_random_bytes(12) # generate a random 96-bit (12-byte) nonce for AES-GCM (what is recommended for AES-GCM)
             cipher = AES.new(key, AES.MODE_GCM, nonce=nonce)
             ciphertext, tag = cipher.encrypt_and_digest(frame_bytes) # encrypt the frame bytes and get the authentication tag to ensure data integrity
@@ -104,6 +102,7 @@ def encrypt_fpv_stream()->None:
             output_file.write(tag) # write the tag
             output_file.write(struct.pack(">I", len(ciphertext))) # write 4 bytes for ciphertext length
             output_file.write(ciphertext) # write the ciphertext
+            # ========================================================
 
             frame_count += 1
             if frame_count % 50 == 0: # keep track of progress every 50 frames to see if things are working

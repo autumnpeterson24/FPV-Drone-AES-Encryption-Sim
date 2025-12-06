@@ -9,11 +9,11 @@ Description: Decrypts fpv_encrypted.bin (simulated encrypted fpv drone video str
 """
 
 import os # for file path stuff
-import struct
+import struct # for packing and unpacking binary data
 import cv2 # for video processing stuff
-import numpy as np
+import numpy as np # for reconstructing frames from bytes
 from Crypto.Cipher import AES # Library to use AES-GCM from pycryptodome
-import time
+import time # for timing
 
 KEY_FILE = "aes_key.bin" # binary file containing the AES key to use for decryption
 
