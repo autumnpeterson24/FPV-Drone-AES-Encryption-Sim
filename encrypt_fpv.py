@@ -63,8 +63,8 @@ def encrypt_fpv_stream()->None:
 
     with open(output_path, "wb") as output_file:
         # write out to the binary file the header information needed for decryption
-        my_format = b"FPVf" # The beginning for each frame (basically the name of my format) MUST BE 4 BYTES
-        output_file.write(my_format)
+        format_spec = b"FPVf" # The beginning of my file has this (basically the name of my format) MUST BE 4 BYTES
+        output_file.write(format_spec)
         output_file.write(struct.pack(">I", width)) # write 4 bytes for width (>I is format for big-endian unsigned int)
         output_file.write(struct.pack(">I", height)) # write 4 bytes for height (>I is format for big-endian unsigned int)
         output_file.write(struct.pack("B", channels)) # write 1 byte for channels (B is format for Byte)
