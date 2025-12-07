@@ -33,7 +33,12 @@ def create_aes_key()->bytes:
     return key # returns the 256-bit AES key as bytes
 
 def encrypt_fpv_stream()->None:
-    """ Encrypts the FPV drone video stream frame by frame and writes to a binary file. """
+    """ 
+    Encrypts the FPV drone video stream frame by frame and writes to a binary file. 
+    
+    Returns: 
+        None
+    """
     vid_path = "media/fpv_vid.mp4" # path to the original video file
     output_path = "encrypted_stream.bin" # path to the encypted binary file
 
@@ -57,10 +62,9 @@ def encrypt_fpv_stream()->None:
     print(f"Video opened successfully for ENCRYPION -> {vid_path}")
 
     with open(output_path, "wb") as output_file:
-        # write out header:
-        # 4 bytes magic, 4 bytes width, 4 bytes height, 4 bytes fps (float), 1 byte channels
-        magic = b"FPV1" # 4 byte magic number to identify file type!
-        output_file.write(magic)
+        # write out to the binary file the header information needed for decryption
+        my_format = b"FPVf" # The beginning for each frame (basically the name of my format) MUST BE 4 BYTES
+        output_file.write(my_format)
         output_file.write(struct.pack(">I", width)) # write 4 bytes for width (>I is format for big-endian unsigned int)
         output_file.write(struct.pack(">I", height)) # write 4 bytes for height (>I is format for big-endian unsigned int)
         output_file.write(struct.pack("B", channels)) # write 1 byte for channels (B is format for Byte)

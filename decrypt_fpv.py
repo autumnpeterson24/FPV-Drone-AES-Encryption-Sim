@@ -30,7 +30,12 @@ def load_key()->bytes:
     return key # returns the AES key as bytes
 
 def decrypt_fpv_stream()->float:
-    """ Decrypts the FPV drone video stream frame by frame and displays it. """
+    """ 
+    Decrypts the FPV drone video stream frame by frame and displays it. 
+    
+    Returns:
+         float: The frames per second of the decrypted video stream.
+    """
 
     # SETTING UP ==========================================
     input_path = "encrypted_stream.bin" # path to the encrypted binary file
@@ -45,7 +50,7 @@ def decrypt_fpv_stream()->float:
     with open(input_path, "rb") as file:
         # read the header that was written during encryption to figure out how to decrypt (like a recipe)
         magic = file.read(4) # read the magic number (4 bytes)
-        if magic != b"FPV1": # check that the magic number for the file is correct so it can be read correctly
+        if magic != b"FPVf": # check that the formating that was described in the encryption is correct
             print(f"ERROR: Invalid file format or corrupted file.")
             exit(1) # exit with error code 1 if the magic number is incorrect
 

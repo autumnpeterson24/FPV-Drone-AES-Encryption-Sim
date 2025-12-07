@@ -16,7 +16,7 @@ def play_unecrypted_video(video_path: str)->None:
         print(f"ERROR: Can't open video file {video_path}")
         return
 
-    delay_ms = int(1000.0 / 60) # calculate delay between frames in milliseconds for cv2.waitKey()
+    #delay_ms = int(1000.0 / 60) # calculate delay between frames in milliseconds for cv2.waitKey()
     frame_count = 0 # keep track of number of frames processed
     start = time.time() # time how long it takes to see if there is latency
     while True:
